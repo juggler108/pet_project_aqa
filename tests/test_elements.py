@@ -1,6 +1,6 @@
+from random import randint
 import pytest
-
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
 from time import sleep
 
 
@@ -40,4 +40,21 @@ class TestElements:
             assert output_yes == 'Yes', "'Yes' radiobutton has not been selected"
             assert output_impressive == 'Impressive', "'Impressive' radiobutton has not been selected"
             assert output_no == 'No', "'No' radiobutton has not been selected"
+
+    class TestWebTable:
+        def test_web_table_add_person(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            new_person = web_table_page.add_new_person()
+            table_result = web_table_page.check_added_person()
+            assert new_person in table_result, "new person has not been added"
+
+        def test_web_table_search_person(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            first_name = web_table_page.add_new_person()[0]
+            web_table_page.search_some_person(first_name)
+            table_result = web_table_page.check_search_person()
+            assert first_name in table_result, "the person was not found in the table"
+
 
