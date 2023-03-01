@@ -47,3 +47,7 @@ class WebTablePageLocators:
     SEARCH_INPUT = (By.CSS_SELECTOR, "#searchBox")
     DELETE_BUTTON = (By.CSS_SELECTOR, "span[title='Delete']")
     ROW_PARENT = (By.XPATH, ".//ancestor::div[@class='rt-tr-group']")
+
+    # update
+    UPDATE_BUTTON = (By.CSS_SELECTOR, "span[title='Edit']")
+

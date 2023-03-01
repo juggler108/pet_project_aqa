@@ -78,17 +78,17 @@ class RadioButtonPage(BasePage):
 
 class WebTablePage(BasePage):
     locators = WebTablePageLocators()
+    person_info = next(generated_person())
 
     def add_new_person(self):
         count = 1
         while count != 0:
-            person_info = next(generated_person())
-            first_name = person_info.first_name
-            last_name = person_info.last_name
-            email = person_info.email
-            age = person_info.age
-            salary = person_info.salary
-            department = person_info.department
+            first_name = self.person_info.first_name
+            last_name = self.person_info.last_name
+            email = self.person_info.email
+            age = self.person_info.age
+            salary = self.person_info.salary
+            department = self.person_info.department
 
             self.element_is_visible(self.locators.ADD_BUTTON).click()
             self.element_is_visible(self.locators.FIRST_NAME_INPUT).send_keys(first_name)
@@ -116,3 +116,28 @@ class WebTablePage(BasePage):
         delete_button = self.element_is_present(self.locators.DELETE_BUTTON)
         row = delete_button.find_element(*self.locators.ROW_PARENT)
         return row.text.splitlines()
+
+    def update_person_info_first_name(self):
+        first_name = self.person_info.first_name
+        self.element_is_visible(self.locators.UPDATE_BUTTON).click()
+        self.element_is_visible(self.locators.FIRST_NAME_INPUT).clear()
+        self.element_is_visible(self.locators.FIRST_NAME_INPUT).send_keys(first_name)
+        self.element_is_visible(self.locators.SUBMIT).click()
+        return str(first_name)
+
+    def update_person_info_last_name(self):
+        last_name = self.person_info.last_name
+        self.element_is_visible(self.locators.UPDATE_BUTTON).click()
+        self.element_is_visible(self.locators.LAST_NAME_INPUT).clear()
+        self.element_is_visible(self.locators.LAST_NAME_INPUT).send_keys(last_name)
+        self.element_is_visible(self.locators.SUBMIT).click()
+        return str(last_name)
+
+    def update_person_info_email(self):
+        email = self.person_info.email
+        self.element_is_visible(self.locators.UPDATE_BUTTON).click()
+        self.element_is_visible(self.locators.EMAIL_INPUT).clear()
+        self.element_is_visible(self.locators.EMAIL_INPUT).send_keys(email)
+        self.element_is_visible(self.locators.SUBMIT).click()
+        return str(email)
+

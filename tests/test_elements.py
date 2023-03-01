@@ -57,4 +57,32 @@ class TestElements:
             table_result = web_table_page.check_search_person()
             assert first_name in table_result, "the person was not found in the table"
 
+        def test_web_table_update_person_info_first_name(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            last_name = web_table_page.add_new_person()[0]
+            web_table_page.search_some_person(last_name)
+            update_info = web_table_page.update_person_info_first_name()
+            update_row = web_table_page.check_search_person()
+            assert update_info in update_row, "the person cart has not been changed"
+
+        def test_web_table_update_person_info_last_name(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            last_name = web_table_page.add_new_person()[1]
+            web_table_page.search_some_person(last_name)
+            update_info = web_table_page.update_person_info_last_name()
+            update_row = web_table_page.check_search_person()
+            assert update_info in update_row, "the person cart has not been changed"
+
+        def test_web_table_update_person_info_email(self, driver):
+            web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
+            web_table_page.open()
+            last_name = web_table_page.add_new_person()[3]
+            web_table_page.search_some_person(last_name)
+            sleep(3)
+            update_info = web_table_page.update_person_info_email()
+            sleep(3)
+            update_row = web_table_page.check_search_person()
+            assert update_info in update_row, "the person cart has not been changed"
 
