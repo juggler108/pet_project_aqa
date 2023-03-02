@@ -64,3 +64,10 @@ class ButtonsPageLocators:
     DOUBLE_CLICK_MESSAGE = (By.CSS_SELECTOR, "#doubleClickMessage")
     RIGHT_CLICK_MESSAGE = (By.CSS_SELECTOR, "#rightClickMessage")
     CLICK_ME_MESSAGE = (By.CSS_SELECTOR, "#dynamicClickMessage")
+
+
+class LinksPageLocators:
+    SIMPLE_LINK = (By.CSS_SELECTOR, "#simpleLink")
+    NO_CONTENT = (By.CSS_SELECTOR, "#no-content")
+    BAD_REQUEST = (By.CSS_SELECTOR, "#bad-request")
+
