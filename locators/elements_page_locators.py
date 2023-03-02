@@ -71,3 +71,10 @@ class LinksPageLocators:
     NO_CONTENT = (By.CSS_SELECTOR, "#no-content")
     BAD_REQUEST = (By.CSS_SELECTOR, "#bad-request")
 
+
+class UploadAndDownloadLocators:
+    UPLOAD_FILE = (By.CSS_SELECTOR, "#uploadFile")
+    DOWNLOAD_FILE = (By.CSS_SELECTOR, "#downloadButton")
+
+    UPLOADED_RESULT = (By.CSS_SELECTOR, "#uploadedFilePath")
+

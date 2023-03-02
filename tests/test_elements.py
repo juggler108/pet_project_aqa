@@ -1,6 +1,7 @@
 from random import randint
 import pytest
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
+    UploadAndDownloadPage
 from time import sleep
 
 
@@ -141,3 +142,16 @@ class TestElements:
             links_page.open()
             response_code = links_page.check_no_content_link("https://demoqa.com/no-content")
             assert response_code == 204, "the link works or the status code is not 204"
+
+    class TestUploadAndDownload:
+        def test_upload_file(self, driver):
+            upload_and_download_page = UploadAndDownloadPage(driver, "https://demoqa.com/upload-download")
+            upload_and_download_page.open()
+            path, uploaded_file = upload_and_download_page.upload_file()
+            assert path == uploaded_file, "the file has not been uploaded"
+
+        def test_download_file(self, driver):
+            upload_and_download_page = UploadAndDownloadPage(driver, "https://demoqa.com/upload-download")
+            upload_and_download_page.open()
+            check = upload_and_download_page.download_file()
+            assert check is True, "the file has not been downloaded"
