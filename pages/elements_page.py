@@ -1,5 +1,8 @@
 from time import sleep
 from random import choice
+
+from selenium.webdriver.common.by import By
+
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
     WebTablePageLocators
@@ -141,3 +144,23 @@ class WebTablePage(BasePage):
         self.element_is_visible(self.locators.SUBMIT).click()
         return str(email)
 
+    def delete_person(self):
+        self.element_is_visible(self.locators.DELETE_BUTTON).click()
+
+    def check_deleted_person(self):
+        return self.element_is_present(self.locators.NO_ROWS_FOUND).text
+
+    def select_up_to_some_rows(self):
+        count = [5, 10, 20, 25, 50, 100]
+        data = []
+        for i in count:
+            page_size_option_button = self.element_is_present(self.locators.PAGE_SIZE_OPTION)
+            self.go_to_element(page_size_option_button)
+            page_size_option_button.click()
+            self.element_is_visible((By.CSS_SELECTOR, f"select option[value='{i}']")).click()
+            data.append(self.check_changed_count_rows())
+        return data
+
+    def check_changed_count_rows(self):
+        rows = self.elements_are_present(self.locators.FULL_PERSON_LIST)
+        return len(rows)

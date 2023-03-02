@@ -47,7 +47,8 @@ class WebTablePageLocators:
     SEARCH_INPUT = (By.CSS_SELECTOR, "#searchBox")
     DELETE_BUTTON = (By.CSS_SELECTOR, "span[title='Delete']")
     ROW_PARENT = (By.XPATH, ".//ancestor::div[@class='rt-tr-group']")
+    NO_ROWS_FOUND = (By.CSS_SELECTOR, ".rt-noData")
+    PAGE_SIZE_OPTION = (By.CSS_SELECTOR, ".select-wrap")
 
     # update
     UPDATE_BUTTON = (By.CSS_SELECTOR, "span[title='Edit']")
-
