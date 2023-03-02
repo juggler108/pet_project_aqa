@@ -1,6 +1,8 @@
 from random import randint
 import pytest
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
+from selenium.common import TimeoutException
+
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage
 from time import sleep
 
 
@@ -80,9 +82,7 @@ class TestElements:
             web_table_page.open()
             last_name = web_table_page.add_new_person()[3]
             web_table_page.search_some_person(last_name)
-            sleep(3)
             update_info = web_table_page.update_person_info_email()
-            sleep(3)
             update_row = web_table_page.check_search_person()
             assert update_info in update_row, "the person cart has not been changed"
 
@@ -102,3 +102,25 @@ class TestElements:
             changed_count_rows = web_table_page.select_up_to_some_rows()
             assert changed_count_rows == [5, 10, 20, 25, 50, 100], \
                 "the number of rows have not been changed or changed incorrectly"
+
+    class TestButtonsPage:
+        def test_buttons_page_double_click_button(self, driver):
+            buttons_page = ButtonsPage(driver, "https://demoqa.com/buttons")
+            buttons_page.open()
+            buttons_page.click_double_click_button()
+            message = buttons_page.check_double_click_message()
+            assert message == "You have done a double click", "double click button was not pressed"
+
+        def test_buttons_page_right_click_button(self, driver):
+            buttons_page = ButtonsPage(driver, "https://demoqa.com/buttons")
+            buttons_page.open()
+            buttons_page.click_right_click_button()
+            message = buttons_page.check_right_click_message()
+            assert message == "You have done a right click", "right click button was not pressed"
+
+        def test_buttons_page_click_me_button(self, driver):
+            buttons_page = ButtonsPage(driver, "https://demoqa.com/buttons")
+            buttons_page.open()
+            buttons_page.click_click_me_button()
+            message = buttons_page.check_click_me_message()
+            assert message == "You have done a dynamic click", "click me button was not pressed"

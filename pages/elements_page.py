@@ -1,11 +1,12 @@
 from time import sleep
 from random import choice
 
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    WebTablePageLocators
+    WebTablePageLocators, ButtonsPageLocators
 from pages.base_page import BasePage
 
 
@@ -153,6 +154,8 @@ class WebTablePage(BasePage):
     def select_up_to_some_rows(self):
         count = [5, 10, 20, 25, 50, 100]
         data = []
+        self.remove_footer()
+        self.remove_fixedban()
         for i in count:
             page_size_option_button = self.element_is_present(self.locators.PAGE_SIZE_OPTION)
             self.go_to_element(page_size_option_button)
@@ -164,3 +167,25 @@ class WebTablePage(BasePage):
     def check_changed_count_rows(self):
         rows = self.elements_are_present(self.locators.FULL_PERSON_LIST)
         return len(rows)
+
+
+class ButtonsPage(BasePage):
+    locators = ButtonsPageLocators()
+
+    def click_double_click_button(self):
+        self.action_double_click(self.element_is_visible(self.locators.DOUBLE_CLICK_BUTTON))
+
+    def click_right_click_button(self):
+        self.action_right_click(self.element_is_visible(self.locators.RIGHT_CLICK_BUTTON))
+
+    def click_click_me_button(self):
+        self.element_is_visible(self.locators.CLICK_ME_BUTTON).click()
+
+    def check_double_click_message(self):
+        return self.element_is_visible(self.locators.DOUBLE_CLICK_MESSAGE).text
+
+    def check_right_click_message(self):
+        return self.element_is_visible(self.locators.RIGHT_CLICK_MESSAGE).text
+
+    def check_click_me_message(self):
+        return self.element_is_visible(self.locators.CLICK_ME_MESSAGE).text
