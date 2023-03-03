@@ -1,12 +1,12 @@
 from random import randint
 import pytest
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage, ButtonsPage, LinksPage, \
-    UploadAndDownloadPage
+    UploadAndDownloadPage, DynamicPropertiesPage
 from time import sleep
 
 
 class TestElements:
-    class TestTextBox:
+    class TestTextBoxPage:
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, "https://demoqa.com/text-box")
             text_box_page.open()
@@ -17,7 +17,7 @@ class TestElements:
             assert current_address.replace('\n', ' ') == output_cur_address, "current_address does not match"
             assert permanent_address.replace('\n', ' ') == output_per_address, "permanent_address does not match"
 
-    class TestCheckBox:
+    class TestCheckBoxPage:
         def test_check_box(self, driver):
             check_box_page = CheckBoxPage(driver, "https://demoqa.com/checkbox")
             check_box_page.open()
@@ -27,7 +27,7 @@ class TestElements:
             output_result = check_box_page.get_output_result()
             assert checked_checkboxes == output_result, "checkboxes have not been selected"
 
-    class TestRadioButton:
+    class TestRadioButtonPage:
         @pytest.mark.xfail
         def test_radio_button(self, driver):
             radio_button_page = RadioButtonPage(driver, "https://demoqa.com/radio-button")
@@ -42,7 +42,7 @@ class TestElements:
             assert output_impressive == 'Impressive', "'Impressive' radiobutton has not been selected"
             assert output_no == 'No', "'No' radiobutton has not been selected"
 
-    class TestWebTable:
+    class TestWebTablePage:
         def test_web_table_add_person(self, driver):
             web_table_page = WebTablePage(driver, "https://demoqa.com/webtables")
             web_table_page.open()
@@ -155,3 +155,22 @@ class TestElements:
             upload_and_download_page.open()
             check = upload_and_download_page.download_file()
             assert check is True, "the file has not been downloaded"
+
+    class TestDynamicPropertiesPage:
+        def test_enable_after_5sec_button(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            enable = dynamic_properties_page.check_clickable_button()
+            assert enable is True, "button did not enable after 5 seconds"
+
+        def test_color_change_button(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            before, after = dynamic_properties_page.check_changed_color_of_button()
+            assert before != after, "color of button text did not change after 5 seconds"
+
+        def test_visible_after_5sec_button(self, driver):
+            dynamic_properties_page = DynamicPropertiesPage(driver, "https://demoqa.com/dynamic-properties")
+            dynamic_properties_page.open()
+            visible = dynamic_properties_page.check_appear_button()
+            assert visible is True, "button did not appear after 5 seconds"

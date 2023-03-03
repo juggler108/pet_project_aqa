@@ -78,3 +78,9 @@ class UploadAndDownloadLocators:
 
     UPLOADED_RESULT = (By.CSS_SELECTOR, "#uploadedFilePath")
 
+
+class DynamicPropertiesLocators:
+    ENABLE_AFTER_BUTTON = (By.CSS_SELECTOR, "#enableAfter")
+    COLOR_CHANGE_BUTTON = (By.CSS_SELECTOR, "#colorChange")
+    VISIBLE_AFTER_BUTTON = (By.CSS_SELECTOR, "#visibleAfter")
+
