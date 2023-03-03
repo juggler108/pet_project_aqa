@@ -8,10 +8,10 @@ faker = Faker('ru_RU')
 
 def generated_person():
     yield Person(
-        full_name=faker.name(),
         first_name=faker.first_name(),
         last_name=faker.last_name(),
         email=faker.email(),
+        phone_number=faker.msisdn(),
         age=randint(10, 80),
         salary=randint(1000, 5000),
         department=faker.job(),
