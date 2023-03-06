@@ -53,3 +53,8 @@ class BasePage:
         alert_window = self.driver.switch_to.alert
         return alert_window
 
+    def switch_to_frame(self, frame):
+        self.driver.switch_to.frame(frame)
+
+    def switch_to_default_content(self):
+        self.driver.switch_to.default_content()

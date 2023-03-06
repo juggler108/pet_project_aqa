@@ -143,7 +143,7 @@ class TestElements:
             response_code = links_page.check_no_content_link("https://demoqa.com/no-content")
             assert response_code == 204, "the link works or the status code is not 204"
 
-    class TestUploadAndDownload:
+    class TestUploadAndDownloadPage:
         def test_upload_file(self, driver):
             upload_and_download_page = UploadAndDownloadPage(driver, "https://demoqa.com/upload-download")
             upload_and_download_page.open()
