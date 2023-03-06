@@ -46,3 +46,6 @@ class BasePage:
         action = ActionChains(self.driver)
         action.context_click(element).perform()
 
+    def switch_to_new_window(self):
+        self.driver.switch_to.window(self.driver.window_handles[1])
+
