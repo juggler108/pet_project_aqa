@@ -2,7 +2,7 @@ from time import sleep
 
 import pytest
 
-from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage
 
 
 class TestAlertsFrameWindows:
@@ -48,3 +48,10 @@ class TestAlertsFrameWindows:
             assert result1 == ['This is a sample page', '500px', '350px'], "the frame1 does not exist"
             assert result2 == ['This is a sample page', '100px', '100px'], "the frame2 does not exist"
 
+    class TestNestedFramesPage:
+        def test_nested_frames(self, driver):
+            nested_frames_page = NestedFramesPage(driver, "https://demoqa.com/nestedframes")
+            nested_frames_page.open()
+            parent_text, child_text = nested_frames_page.check_nested_frames()
+            assert parent_text == "Parent frame", "parent nested frame does not exist"
+            assert child_text == "Child Iframe", "child nested frame does not exist"
