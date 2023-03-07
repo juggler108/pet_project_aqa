@@ -1,8 +1,9 @@
 from time import sleep
 
 import pytest
-
-from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage
+from locators.alerts_frame_windows_page_locators import ModalDialogsPageLocators
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage, \
+    ModalDialogsPage
 
 
 class TestAlertsFrameWindows:
@@ -55,3 +56,15 @@ class TestAlertsFrameWindows:
             parent_text, child_text = nested_frames_page.check_nested_frames()
             assert parent_text == "Parent frame", "parent nested frame does not exist"
             assert child_text == "Child Iframe", "child nested frame does not exist"
+
+    class TestModalDialogsPage:
+        def test_modal_dialogs(self, driver):
+            modal_dialogs_page = ModalDialogsPage(driver, "https://demoqa.com/modal-dialogs")
+            modal_dialogs_page.open()
+            small_dialog, large_dialog = modal_dialogs_page.check_modal_dialogs()
+            assert small_dialog[0] == "Small Modal", "the small header is not 'Small Modal'"
+            assert small_dialog[1] == 47, "small dialog text is not correct"
+            assert large_dialog[0] == "Large Modal", "the large header is not 'Large Modal'"
+            assert large_dialog[1] == 574, "large dialog text is not correct"
+
+
