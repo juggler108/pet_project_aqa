@@ -14,10 +14,11 @@
 #
 # print(base64.b64decode(data))
 
-data = [{        'value': 1,        'label': 'Hindi'    }, {        'value': 2,        'label': 'English'    }, {        'value': 3,        'label': 'Maths'    }, {        'value': 4,        'label': 'Physics'    }, {        'value': 5,        'label': 'Chemistry'    }, {        'value': 6,        'label': 'Biology'    }, {        'value': 7,        'label': 'Computer Science'    }, {        'value': 8,        'label': 'Commerce'    }, {        'value': 9,        'label': 'Accounting'    }, {        'value': 10,        'label': 'Economics'    }, {        'value': 11,        'label': 'Arts'    }, {        'value': 12,        'label': 'Social Studies'    }, {        'value': 13,        'label': 'History'    }, {        'value': 14,        'label': 'Civics'    }]
+data = [{        'value': 'red',        'label': 'Red'    }, {        'value': 1,        'label': 'Blue'    }, {        'value': 2,        'label': 'Green'    }, {        'value': 3,        'label': 'Yellow'    }, {        'value': 4,        'label': 'Purple'    }, {        'value': 5,        'label': 'Black'    }, {        'value': 6,        'label': 'White'    }, {        'value': 7,        'label': 'Voilet'    }, {        'value': 8,        'label': 'Indigo'    }, {        'value': 9,        'label': 'Magenta'    }, {        'value': 10,        'label': 'Aqua'    }]
 
 python_dict = {}
 for item in data:
-    python_dict[item['value']] = item['label']
+    python_dict[item['label']] = item['value']
+
 
 print(python_dict)

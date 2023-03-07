@@ -13,3 +13,9 @@ class Person:
     department: str = None
     current_address: str = None
     permanent_address: str = None
+
+
+@dataclass
+class ColorName:
+    color_name: list = None
+
