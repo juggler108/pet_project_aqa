@@ -1,8 +1,11 @@
-from random import randint
+import datetime
+from random import randint, choice
 from faker import Faker
-from data.data import Person, ColorName
+from data.data import Person, ColorName, Date
+from datetime import datetime
 
 faker = Faker('ru_RU')
+faker_en = Faker('EN')
 # Faker.seed(0)
 
 
@@ -32,3 +35,25 @@ def generated_color():
         color_name=["red", "Red", "Blue", "Green", "Yellow", "Purple",
                     "Black", "White", "Voilet", "Indigo", "Magenta", "Aqua"]
     )
+
+
+def generated_date():
+    yield Date(
+        year=faker_en.year(),
+        month=faker_en.month_name(),
+        day=faker_en.day_of_month(),
+        time="12:00"
+    )
+
+
+def time_list_15_min_interval():
+    start_time = datetime.time(hour=0, minute=0, second=0)
+    end_time = datetime.time(hour=23, minute=45, second=0)
+    delta = datetime.timedelta(minutes=15)
+
+    time_list = []
+    current_time = start_time
+    while current_time < end_time:
+        time_list.append(current_time.strftime("%H:%M"))
+        current_time = (datetime.datetime.combine(datetime.date.today(), current_time) + delta).time()
+    return choice(time_list)

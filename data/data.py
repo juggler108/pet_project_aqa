@@ -19,3 +19,10 @@ class Person:
 class ColorName:
     color_name: list = None
 
+
+@dataclass
+class Date:
+    year: str = None
+    month: str = None
+    day: str = None
+    time: str = None
