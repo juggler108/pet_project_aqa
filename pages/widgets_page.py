@@ -6,7 +6,8 @@ from selenium.webdriver.support.select import Select
 from generator.generator import generated_color, generated_date
 from selenium.common import TimeoutException
 from selenium.webdriver import Keys
-from locators.widget_page_locators import AccordianPageLocators, AutoCompletePageLocators, DatePickerPageLocators
+from locators.widget_page_locators import AccordianPageLocators, AutoCompletePageLocators, DatePickerPageLocators, \
+    SliderPageLocators
 from pages.base_page import BasePage
 
 
@@ -120,3 +121,14 @@ class DatePickerPage(BasePage):
             if item.text == value:
                 item.click()
                 break
+
+
+class SliderPage(BasePage):
+    locators = SliderPageLocators()
+
+    def change_slider_value(self):
+        slider_value_before = self.element_is_present(self.locators.SLIDER_VALUE).get_attribute("value")
+        self.action_drag_and_drop_by_offset(self.element_is_visible(self.locators.INPUT_SLIDER_VALUE), randint(0, 100), 0)
+        slider_value_after = self.element_is_present(self.locators.SLIDER_VALUE).get_attribute("value")
+        return slider_value_before, slider_value_after
+

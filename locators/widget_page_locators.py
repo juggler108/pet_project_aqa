@@ -32,3 +32,9 @@ class DatePickerPageLocators:
     DATE_AND_TIME_YEAR_LIST = (By.CSS_SELECTOR, ".react-datepicker__year-option")
     DATE_AND_TIME_MONTH_LIST = (By.CSS_SELECTOR, ".react-datepicker__month-option")
 
+
+class SliderPageLocators:
+    INPUT_SLIDER_VALUE = (By.CSS_SELECTOR, ".range-slider")
+    SLIDER_VALUE = (By.CSS_SELECTOR, "#sliderValue")
+
+

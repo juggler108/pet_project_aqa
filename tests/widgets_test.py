@@ -1,6 +1,6 @@
 from time import sleep
 
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage
 
 
 class TestWidgets:
@@ -59,3 +59,10 @@ class TestWidgets:
             date_picker_page.open()
             value_date_before, value_date_after = date_picker_page.check_select_date_and_time()
             assert value_date_before != value_date_after, "the date and time hava not been changed"
+
+    class TestSliderPage:
+        def test_slider(self, driver):
+            slider_page = SliderPage(driver, "https://demoqa.com/slider")
+            slider_page.open()
+            slider_value_before, slider_value_after = slider_page.change_slider_value()
+            assert slider_value_before != slider_value_after, "slider has not been moved"
