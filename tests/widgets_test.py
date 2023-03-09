@@ -1,6 +1,6 @@
 from time import sleep
 
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage
 
 
 class TestWidgets:
@@ -66,3 +66,17 @@ class TestWidgets:
             slider_page.open()
             slider_value_before, slider_value_after = slider_page.change_slider_value()
             assert slider_value_before != slider_value_after, "slider has not been moved"
+
+    class TestProgressBar:
+        def test_progress_bar_start_stop(self, driver):
+            progress_bar_page = ProgressBarPage(driver, "https://demoqa.com/progress-bar")
+            progress_bar_page.open()
+            progress_bar_value_before, progress_bar_value_after = progress_bar_page.change_progress_bar_value()
+            assert progress_bar_value_before != progress_bar_value_after, "the progress bar value has not been changed"
+
+        def test_progres_bar_reset(self, driver):
+            progress_bar_page = ProgressBarPage(driver, "https://demoqa.com/progress-bar")
+            progress_bar_page.open()
+            progress_bar_value_before, progress_bar_value_after = progress_bar_page.reset_progress_bar_value()
+            assert progress_bar_value_before == progress_bar_value_after, "reset_button did not reset value"
+

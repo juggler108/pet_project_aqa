@@ -35,6 +35,13 @@ class DatePickerPageLocators:
 
 class SliderPageLocators:
     INPUT_SLIDER_VALUE = (By.CSS_SELECTOR, ".range-slider")
-    SLIDER_VALUE = (By.CSS_SELECTOR, "#sliderValue")
+    SLIDER_VALUE = (By.CSS_SELECTOR, ".progress-bar")
+
+
+class ProgressBarPageLocators:
+    START_STOP_BUTTON = (By.CSS_SELECTOR, "#startStopButton")
+    PROGRESS_BAR = (By.CSS_SELECTOR, ".progress-bar")
+    RESET_BUTTON = (By.CSS_SELECTOR, "#resetButton")
+
 
 

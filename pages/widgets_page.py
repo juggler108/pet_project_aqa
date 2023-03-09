@@ -7,7 +7,7 @@ from generator.generator import generated_color, generated_date
 from selenium.common import TimeoutException
 from selenium.webdriver import Keys
 from locators.widget_page_locators import AccordianPageLocators, AutoCompletePageLocators, DatePickerPageLocators, \
-    SliderPageLocators
+    SliderPageLocators, ProgressBarPageLocators
 from pages.base_page import BasePage
 
 
@@ -132,3 +132,21 @@ class SliderPage(BasePage):
         slider_value_after = self.element_is_present(self.locators.SLIDER_VALUE).get_attribute("value")
         return slider_value_before, slider_value_after
 
+
+class ProgressBarPage(BasePage):
+    locators = ProgressBarPageLocators()
+
+    def change_progress_bar_value(self):
+        progress_bar_value_before = self.element_is_present(self.locators.PROGRESS_BAR).get_attribute("aria-valuenow")
+        self.element_is_clickable(self.locators.START_STOP_BUTTON).click()
+        sleep(randint(1, 10))
+        self.element_is_clickable(self.locators.START_STOP_BUTTON).click()
+        progress_bar_value_after = self.element_is_present(self.locators.PROGRESS_BAR).get_attribute("aria-valuenow")
+        return progress_bar_value_before, progress_bar_value_after
+
+    def reset_progress_bar_value(self):
+        progress_bar_value_before = self.element_is_present(self.locators.PROGRESS_BAR).get_attribute("aria-valuenow")
+        self.element_is_clickable(self.locators.START_STOP_BUTTON).click()
+        self.element_is_clickable(self.locators.RESET_BUTTON, timeout=20).click()
+        progress_bar_value_after = self.element_is_present(self.locators.PROGRESS_BAR).get_attribute("aria-valuenow")
+        return progress_bar_value_before, progress_bar_value_after
