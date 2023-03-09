@@ -44,4 +44,12 @@ class ProgressBarPageLocators:
     RESET_BUTTON = (By.CSS_SELECTOR, "#resetButton")
 
 
-
+class TabsPageLocators:
+    TAB_WHAT = (By.CSS_SELECTOR, "#demo-tab-what")
+    TAB_WHAT_CONTENT = (By.CSS_SELECTOR, "#demo-tabpane-what")
+    TAB_ORIGIN = (By.CSS_SELECTOR, "#demo-tab-origin")
+    TAB_ORIGIN_CONTENT = (By.CSS_SELECTOR, "#demo-tabpane-origin")
+    TAB_USE = (By.CSS_SELECTOR, "#demo-tab-use")
+    TAB_USE_CONTENT = (By.CSS_SELECTOR, "#demo-tabpane-use")
+    TAB_MORE = (By.CSS_SELECTOR, "#demo-tab-more")
+    TAB_MORE_CONTENT = (By.CSS_SELECTOR, "demo-tabpane-more")

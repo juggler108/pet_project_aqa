@@ -4,10 +4,10 @@ from time import sleep
 from selenium.webdriver.support.select import Select
 
 from generator.generator import generated_color, generated_date
-from selenium.common import TimeoutException
+from selenium.common import TimeoutException, ElementClickInterceptedException
 from selenium.webdriver import Keys
 from locators.widget_page_locators import AccordianPageLocators, AutoCompletePageLocators, DatePickerPageLocators, \
-    SliderPageLocators, ProgressBarPageLocators
+    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators
 from pages.base_page import BasePage
 
 
@@ -150,3 +150,29 @@ class ProgressBarPage(BasePage):
         self.element_is_clickable(self.locators.RESET_BUTTON, timeout=20).click()
         progress_bar_value_after = self.element_is_present(self.locators.PROGRESS_BAR).get_attribute("aria-valuenow")
         return progress_bar_value_before, progress_bar_value_after
+
+
+class TabsPage(BasePage):
+    locators = TabsPageLocators()
+
+    def check_tabs(self, name_tab):
+        tabs = {
+            "What":
+                {"title": self.locators.TAB_WHAT,
+                 "content": self.locators.TAB_WHAT_CONTENT},
+            "Origin":
+                {"title": self.locators.TAB_ORIGIN,
+                 "content": self.locators.TAB_ORIGIN_CONTENT},
+            "Use":
+                {"title": self.locators.TAB_USE,
+                 "content": self.locators.TAB_USE_CONTENT},
+            "More":
+                {"title": self.locators.TAB_MORE,
+                 "content": self.locators.TAB_MORE_CONTENT},
+        }
+
+        button = self.element_is_visible(tabs[name_tab]["title"])
+        button.click()
+        content = self.element_is_present(tabs[name_tab]["content"])
+        return button.text, len(content.text)
+

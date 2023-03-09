@@ -1,6 +1,8 @@
 from time import sleep
 
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage
+import pytest
+
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage
 
 
 class TestWidgets:
@@ -67,7 +69,7 @@ class TestWidgets:
             slider_value_before, slider_value_after = slider_page.change_slider_value()
             assert slider_value_before != slider_value_after, "slider has not been moved"
 
-    class TestProgressBar:
+    class TestProgressBarPage:
         def test_progress_bar_start_stop(self, driver):
             progress_bar_page = ProgressBarPage(driver, "https://demoqa.com/progress-bar")
             progress_bar_page.open()
@@ -79,4 +81,16 @@ class TestWidgets:
             progress_bar_page.open()
             progress_bar_value_before, progress_bar_value_after = progress_bar_page.reset_progress_bar_value()
             assert progress_bar_value_before == progress_bar_value_after, "reset_button did not reset value"
+
+    class TestTabsPage:
+        @pytest.mark.parametrize('name_tab',
+                                 ["What", "Origin", "Use",
+                                  pytest.param("More", marks=pytest.mark.xfail(reason="button tab is not clickable"))])
+        def test_tabs(self, driver, name_tab):
+            tabs_page = TabsPage(driver, "https://demoqa.com/tabs")
+            tabs_page.open()
+            button_text, len_content = tabs_page.check_tabs(name_tab=name_tab)
+            assert button_text == name_tab and len_content > 0, f"the tab {name_tab} was not pressed or text is missing"
+
+
 
