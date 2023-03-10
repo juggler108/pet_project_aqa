@@ -7,3 +7,13 @@ class SortablePageLocators:
 
     TAB_GRID = (By.CSS_SELECTOR, "#demo-tab-grid")
     GRID_ITEM_LIST = (By.CSS_SELECTOR, ".create-grid .list-group-item")
+
+
+class SelectablePageLocators:
+    TAB_LIST = (By.CSS_SELECTOR, "#demo-tab-list")
+    VERTICAL_ITEM_LIST = (By.CSS_SELECTOR, "#verticalListContainer .list-group-item")
+    VERTICAL_LIST_ITEM__ACTIVE = (By.CSS_SELECTOR, "#verticalListContainer .list-group-item.active")
+
+    TAB_GRID = (By.CSS_SELECTOR, "#demo-tab-grid")
+    GRID_ITEM_LIST = (By.CSS_SELECTOR, "#gridContainer .list-group-item")
+    GRID_ITEM_ACTIVE = (By.CSS_SELECTOR, "#gridContainer .list-group-item.active")
