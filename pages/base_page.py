@@ -50,6 +50,10 @@ class BasePage:
         action = ActionChains(self.driver)
         action.drag_and_drop_by_offset(element, x_coord, y_coord).perform()
 
+    def action_move_to_element(self, element):
+        action = ActionChains(self.driver)
+        action.move_to_element(element).perform()
+
     def switch_to_new_window(self):
         self.driver.switch_to.window(self.driver.window_handles[1])
 

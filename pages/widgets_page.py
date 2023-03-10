@@ -7,7 +7,7 @@ from generator.generator import generated_color, generated_date
 from selenium.common import TimeoutException, ElementClickInterceptedException
 from selenium.webdriver import Keys
 from locators.widget_page_locators import AccordianPageLocators, AutoCompletePageLocators, DatePickerPageLocators, \
-    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators
+    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators, ToolTipsPageLocators
 from pages.base_page import BasePage
 
 
@@ -175,4 +175,22 @@ class TabsPage(BasePage):
         button.click()
         content = self.element_is_present(tabs[name_tab]["content"])
         return button.text, len(content.text)
+
+
+class ToolTipsPage(BasePage):
+    locators = ToolTipsPageLocators()
+
+    def get_text_from_tool_tips(self, hover_element):
+        element = self.element_is_present(hover_element)
+        self.action_move_to_element(element)
+        sleep(0.5)
+        tool_tip_text = self.element_is_visible(self.locators.TOOL_TIPS_INNERS).text
+        return tool_tip_text
+
+    def check_tool_tips(self):
+        tool_tip_button = self.get_text_from_tool_tips(self.locators.HOVER_ME_BUTTON)
+        tool_tip_field = self.get_text_from_tool_tips(self.locators.HOVER_ME_FIELD)
+        tool_tip_contrary = self.get_text_from_tool_tips(self.locators.CONTRARY_LINK)
+        tool_tip_section = self.get_text_from_tool_tips(self.locators.SECTION_LINK)
+        return tool_tip_button, tool_tip_field, tool_tip_contrary, tool_tip_section
 

@@ -2,7 +2,8 @@ from time import sleep
 
 import pytest
 
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
+    ToolTipsPage
 
 
 class TestWidgets:
@@ -92,5 +93,14 @@ class TestWidgets:
             button_text, len_content = tabs_page.check_tabs(name_tab=name_tab)
             assert button_text == name_tab and len_content > 0, f"the tab {name_tab} was not pressed or text is missing"
 
+    class TestToolTips:
+        def test_tool_tips(self, driver):
+            tool_tips_page = ToolTipsPage(driver, "https://demoqa.com/tool-tips")
+            tool_tips_page.open()
+            tool_tip_button, tool_tip_field, tool_tip_contrary, tool_tip_section = tool_tips_page.check_tool_tips()
+            assert tool_tip_button == "You hovered over the Button", "hover element missing or incorrect content"
+            assert tool_tip_field == "You hovered over the text field", "hover element missing or incorrect content"
+            assert tool_tip_contrary == "You hovered over the Contrary", "hover element missing or incorrect content"
+            assert tool_tip_section == "You hovered over the 1.10.32", "hover element missing or incorrect content"
 
 
