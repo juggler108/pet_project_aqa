@@ -2,8 +2,9 @@ from time import sleep
 
 import pytest
 
+from locators.widget_page_locators import MenuPageLocators
 from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
-    ToolTipsPage
+    ToolTipsPage, MenuPage
 
 
 class TestWidgets:
@@ -93,7 +94,7 @@ class TestWidgets:
             button_text, len_content = tabs_page.check_tabs(name_tab=name_tab)
             assert button_text == name_tab and len_content > 0, f"the tab {name_tab} was not pressed or text is missing"
 
-    class TestToolTips:
+    class TestToolTipsPage:
         def test_tool_tips(self, driver):
             tool_tips_page = ToolTipsPage(driver, "https://demoqa.com/tool-tips")
             tool_tips_page.open()
@@ -103,4 +104,10 @@ class TestWidgets:
             assert tool_tip_contrary == "You hovered over the Contrary", "hover element missing or incorrect content"
             assert tool_tip_section == "You hovered over the 1.10.32", "hover element missing or incorrect content"
 
-
+    class TestMenuPage:
+        def test_menu_items(self, driver):
+            menu_page = MenuPage(driver, "https://demoqa.com/menu#")
+            menu_page.open()
+            items = ['Main Item 1', 'Main Item 2', 'Sub Item', 'Sub Item', 'SUB SUB LIST ', 'Sub Sub Item 1', 'Sub Sub Item 2', 'Main Item 3']
+            item_list = menu_page.check_menu_items()
+            assert item_list == items, "menu items does not exist or have not been selected"

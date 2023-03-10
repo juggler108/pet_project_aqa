@@ -7,8 +7,9 @@ from generator.generator import generated_color, generated_date
 from selenium.common import TimeoutException, ElementClickInterceptedException
 from selenium.webdriver import Keys
 from locators.widget_page_locators import AccordianPageLocators, AutoCompletePageLocators, DatePickerPageLocators, \
-    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators, ToolTipsPageLocators
+    SliderPageLocators, ProgressBarPageLocators, TabsPageLocators, ToolTipsPageLocators, MenuPageLocators
 from pages.base_page import BasePage
+from string import ascii_letters
 
 
 class AccordianPage(BasePage):
@@ -194,3 +195,16 @@ class ToolTipsPage(BasePage):
         tool_tip_section = self.get_text_from_tool_tips(self.locators.SECTION_LINK)
         return tool_tip_button, tool_tip_field, tool_tip_contrary, tool_tip_section
 
+
+class MenuPage(BasePage):
+    locators = MenuPageLocators()
+
+    def check_menu_items(self):
+        values = ascii_letters + " 1234567890"
+        menu_item_list = self.elements_are_present(self.locators.ITEM_LIST)
+        data = []
+        for item in menu_item_list:
+            self.action_move_to_element(item)
+            data.append(''.join([i for i in item.text if i in values]))
+
+        return data

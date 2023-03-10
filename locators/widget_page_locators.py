@@ -66,3 +66,7 @@ class ToolTipsPageLocators:
     # TOOL_TIP_SECTION = (By.CSS_SELECTOR, "#texToolTopContainer a[aria-describedby='sectionToolTip']")
     TOOL_TIPS_INNERS = (By.CSS_SELECTOR, ".tooltip-inner")
 
+
+class MenuPageLocators:
+    ITEM_LIST = (By.CSS_SELECTOR, "#nav li a")
+
