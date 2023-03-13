@@ -1,6 +1,6 @@
 from time import sleep
 
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage, DraggablePage
 
 
 class TestInteractions:
@@ -71,3 +71,19 @@ class TestInteractions:
             assert will_after_move != will_after_revert, "the 'will revert' element has not reverted"
             assert not_revert_after_move == will_not_after_revert, "the 'will not revert' element has reverted"
 
+    class TestDraggablePage:
+        def test_simple_draggable(self, driver):
+            draggable_page = DraggablePage(driver, "https://demoqa.com/dragabble")
+            draggable_page.open()
+            before_position, after_position = draggable_page.check_simple_draggable()
+            assert before_position != after_position, "the position of the box has not changed"
+
+        def test_axis_restricted_draggable(self, driver):
+            draggable_page = DraggablePage(driver, "https://demoqa.com/dragabble")
+            draggable_page.open()
+            position_x_before, position_x_after = draggable_page.axis_restricted_x('only_x')
+            position_y_before, position_y_after = draggable_page.axis_restricted_x('only_y')
+            assert position_x_before != position_x_after, "the only_x box position has not changed"
+            assert position_x_before[1] == '0' and position_x_after[1] == '0', "only_x box position shifted in y_axis"
+            assert position_y_before != position_y_after, "the only_y box position has not changed"
+            assert position_y_before[0] == '0' and position_y_after[0] == '0', "only_y box position shifted in x_axis"

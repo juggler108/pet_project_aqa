@@ -1,8 +1,9 @@
 import random
+import re
 from time import sleep
 
 from locators.interactions_page_locators import SortablePageLocators, SelectablePageLocators, ResizablePageLocators, \
-    DroppablePageLocators
+    DroppablePageLocators, DraggablePageLocators
 from pages.base_page import BasePage
 
 
@@ -120,6 +121,7 @@ class DroppablePage(BasePage):
 
     def check_revert_draggable(self, type_drag):
         drag_boxes = {"will_revert": self.locators.WILL_REVERT, "not_revert": self.locators.NOT_REVERT}
+
         self.element_is_visible(self.locators.REVERT_TAB).click()
         drag_box = self.element_is_visible(drag_boxes[type_drag])
         drop_here_box = self.element_is_visible(self.locators.REVERT_DROP_HERE)
@@ -128,4 +130,39 @@ class DroppablePage(BasePage):
         sleep(1)
         position_after_revert = drag_box.get_attribute("style")
         return position_after_move, position_after_revert
+
+
+class DraggablePage(BasePage):
+    locators = DraggablePageLocators()
+
+    def get_before_and_after_position(self, drag_element):
+        self.action_drag_and_drop_by_offset(drag_element, random.randint(0, 150), random.randint(0, 150))
+        before_position = drag_element.get_attribute("style")
+        sleep(0.2)
+        self.action_drag_and_drop_by_offset(drag_element, random.randint(0, 150), random.randint(0, 150))
+        after_position = drag_element.get_attribute("style")
+        return before_position, after_position
+
+    def check_simple_draggable(self):
+        self.element_is_visible(self.locators.SIMPLE_TAB).click()
+        drag_element = self.element_is_visible(self.locators.SIMPLE_DRAG_ME)
+        before_position, after_position = self.get_before_and_after_position(drag_element=drag_element)
+        return before_position, after_position
+
+    @staticmethod
+    def get_position_before(position):
+        return re.findall(r"[0-9]+", position[0])
+
+    @staticmethod
+    def get_position_after(position):
+        return re.findall(r"[0-9]+", position[1])
+
+    def axis_restricted_x(self, drag_box):
+        drag_boxes = {"only_x": self.locators.RESTRICTED_ONLY_X, "only_y": self.locators.RESTRICTED_ONLY_Y}
+
+        self.element_is_visible(self.locators.RESTRICTED_TAB).click()
+        box = self.element_is_visible(drag_boxes[drag_box])
+        position = self.get_before_and_after_position(box)
+        position_before, position_after = self.get_position_before(position), self.get_position_after(position)
+        return position_before, position_after
 
