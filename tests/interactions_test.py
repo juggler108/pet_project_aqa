@@ -1,6 +1,6 @@
 from time import sleep
 
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage
+from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage
 
 
 class TestInteractions:
@@ -40,4 +40,34 @@ class TestInteractions:
             assert min_resize_box == ('150px', '150px'), "min size is not equal to 150x150 px"
             assert min_resize != max_resize, "resizable has not been changed"
 
+    class TestDroppablePage:
+        def test_simple_droppable(self, driver):
+            droppable_page = DroppablePage(driver, "https://demoqa.com/droppable")
+            droppable_page.open()
+            drop_box_text = droppable_page.check_simple_droppable()
+            assert drop_box_text == "Dropped!", "the draggable element has not been dropped"
+
+        def test_accept_droppable(self, driver):
+            droppable_page = DroppablePage(driver, "https://demoqa.com/droppable")
+            droppable_page.open()
+            not_acceptable_text, acceptable_text = droppable_page.check_accept_droppable()
+            assert not_acceptable_text == "Drop here", "the dropped 'not acceptable element' has been accepted"
+            assert acceptable_text == "Dropped!", "the dropped 'acceptable element' has not been accepted"
+
+        def test_prevent_propogation_droppable(self, driver):
+            droppable_page = DroppablePage(driver, "https://demoqa.com/droppable")
+            droppable_page.open()
+            not_greedy, not_greedy_inner, greedy, greedy_inner = droppable_page.check_prevent_propogation_droppable()
+            assert not_greedy == "Dropped!", "the 'not greedy element' text has not changed"
+            assert not_greedy_inner == "Dropped!", "the 'not greedy element' text has not changed"
+            assert greedy == "Outer droppable", "the 'greedy element' text has changed"
+            assert greedy_inner == "Dropped!", "the 'greedy element' text has not changed"
+
+        def test_revert_draggable_droppable(self, driver):
+            droppable_page = DroppablePage(driver, "https://demoqa.com/droppable")
+            droppable_page.open()
+            will_after_move, will_after_revert = droppable_page.check_revert_draggable("will_revert")
+            not_revert_after_move, will_not_after_revert = droppable_page.check_revert_draggable("not_revert")
+            assert will_after_move != will_after_revert, "the 'will revert' element has not reverted"
+            assert not_revert_after_move == will_not_after_revert, "the 'will not revert' element has reverted"
 
