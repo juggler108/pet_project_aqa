@@ -11,6 +11,7 @@ faker_en = Faker('EN')
 
 def generated_person():
     yield Person(
+        full_name=faker.name(),
         first_name=faker.first_name(),
         last_name=faker.last_name(),
         email=faker.email(),
